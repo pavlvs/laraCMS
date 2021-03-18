@@ -12,7 +12,9 @@
             </thead>
             @foreach ($pages as $page)
                 <tr>
-                    <td>{{ $page->title }}</td>
+                    <td>
+                        <a href="{{ route('pages.edit', ['page' => $page->id]) }}">{{ $page->title }}</a>
+                    </td>
                     <td>{{ $page->url }}</td>
                 </tr>
             @endforeach

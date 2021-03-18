@@ -28,7 +28,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.create')->with(['model' => new Page()]);
     }
 
     /**
@@ -61,7 +61,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        return view('admin.pages.edit', ['model' => $page]);
     }
 
     /**
