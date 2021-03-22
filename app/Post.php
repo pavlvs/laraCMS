@@ -10,7 +10,8 @@ class Post extends Model
         'title',
         'slug',
         'excerpt',
-        'body'
+        'body',
+        'published_at'
     ];
 
     public function user()
