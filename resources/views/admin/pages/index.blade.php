@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-info">
+                {{ session('status') }}
+            </div>
+        @endif
+        <br>
         <a href="{{ route('pages.create') }}" class="btn btn-dark mb-2 float-right">Add page</a>
         <table class="table">
             <thead>
@@ -19,5 +25,6 @@
                 </tr>
             @endforeach
         </table>
+        {{ $pages->links() }}
     </div>
 @endsection

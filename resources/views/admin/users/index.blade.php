@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-info">
+                {{ session('status') }}
+            </div>
+        @endif
         <table class="table">
             <thead>
                 <tr>
@@ -25,5 +30,6 @@
                 </tr>
             @endforeach
         </table>
+        {{ $model->links() }}
     </div>
 @endsection
