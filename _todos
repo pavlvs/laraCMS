@@ -3,3 +3,6 @@
 // DONE: Added Post model with migrations
 // DONE: Added BlogController resource controller
 // DONE: Run migration for posts
+// DONE: Requests should be authorized true
+// DONE: Must pay attention to the small signs
+// DONE: Pay attention at the stuff that is done behind the scene with javascript

@@ -22,9 +22,20 @@
                         <a href="{{ route('pages.edit', ['page' => $page->id]) }}">{{ $page->title }}</a>
                     </td>
                     <td>{{ $page->url }}</td>
+                    <td class="text-right">
+                        <a href="{{ route('pages.destroy', ['page' => $page->id]) }}"
+                            class="btn btn-danger delete-link btn-sm"
+                            data-message="Are you sure you want to delete this page?" data-form="delete-form">
+                            Delete
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </table>
         {{ $pages->links() }}
     </div>
+    <form action="" id="delete-form" method="post">
+        @csrf
+        @method('delete')
+    </form>
 @endsection
