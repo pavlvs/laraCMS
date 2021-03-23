@@ -8,3 +8,4 @@
 // DONE: Pay attention at the stuff that is done behind the scene with javascript
 // DONE: Datetime picking with tempus-dominus-bs-4
 // DONE: auto slug generation with javascript and RegEx
+// DONE: dynamic nav with View::composer (make sure to run php artisan config:clear 'articlear' func)
