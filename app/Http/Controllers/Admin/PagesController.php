@@ -22,9 +22,9 @@ class PagesController extends Controller
     public function index()
     {
         if (Auth::user()->isAdminOrEditor()) {
-            $pages = Page::paginate(5);
+            $pages = Page::defaultOrder()->paginate(5);
         } else {
-            $pages = Auth::user()->pages()->paginate(5);
+            $pages = Auth::user()->pages()->defaultOrder()->paginate(5);
         }
         return view('admin.pages.index', [
             'pages' => $pages
@@ -38,7 +38,10 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.create')->with(['model' => new Page()]);
+        return view('admin.pages.create')->with([
+            'model' => new Page(),
+            'orderPages' => Page::defaultOrder()->get()
+        ]);
     }
 
     /**
@@ -51,8 +54,10 @@ class PagesController extends Controller
     {
         Auth::user()->pages()->save(new Page($request->only([
             'title', 'url', 'content'])));
+
+        $this->updatePageOrder($page, $request);
+
         return redirect()->route('pages.index')->with('status', 'Page successfully added');
-        ;
     }
 
     /**
@@ -66,7 +71,10 @@ class PagesController extends Controller
         if (Auth::user()->cant('update', $page)) {
             return redirect()->route('pages.index');
         }
-        return view('admin.pages.edit', ['model' => $page]);
+        return view('admin.pages.edit', [
+            'model' => $page,
+            'orderPages' => Page::defaultOrder()->get()
+        ]);
     }
 
     /**
@@ -81,6 +89,11 @@ class PagesController extends Controller
         if (Auth::user()->cant('update', $page)) {
             return redirect()->route('pages.index');
         }
+
+        if ($response = $this->updatePageOrder($page, $request)) {
+            return $response;
+        }
+
         $page->fill($request->only([
             'title', 'url', 'content']));
 
@@ -101,5 +114,17 @@ class PagesController extends Controller
             return redirect()->route('pages.index');
         }
         //
+    }
+
+    protected function updatePageOrder(Page $page, WorkWithPage $request)
+    {
+        if ($request->has('order', 'orderPage')) {
+            if ($page->id == $request->orderPage) {
+                return redirect()->route('pages.edit', ['page' => $page->id])->
+                withInput()->withErrors(['error' => 'Cannot order page against itself']);
+            }
+
+            $page->updateOrder($request->order, $request->orderPage);
+        }
     }
 }
