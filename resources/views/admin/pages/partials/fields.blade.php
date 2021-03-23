@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <label>Order</label>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <select name="order" id="order" class="form-control">
                 <option value=""></option>
                 <option value="before">Before</option>
@@ -35,7 +35,7 @@
             <select name="orderPage" id="orderPage" class="form-control">
                 <option value=""></option>
                 @foreach ($orderPages as $page)
-                    <option value="{{ $page->id }}">{{ $page->title }}</option>
+                    <option value="{{ $page->id }}">{!! $page->present()->paddedTitle !!}</option>
                 @endforeach
             </select>
         </div>

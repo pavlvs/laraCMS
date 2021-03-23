@@ -4,10 +4,14 @@ namespace App;
 
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 class Page extends Model
 {
     use NodeTrait;
+    use PresentableTrait;
+
+    protected $presenter = 'App\Presenters\PagePresenter';
 
     protected $fillable = [
         'title',
